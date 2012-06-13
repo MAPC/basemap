@@ -33,7 +33,7 @@ Map {
   polygon-fill: @water_bg;
 }
 
-#openspace [zoom>10] {
+#openspace {
   polygon-opacity:1;
   polygon-fill:@open_space;
 }
