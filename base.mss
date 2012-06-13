@@ -10,7 +10,7 @@
 
 @land_bg:    #EDECE2;
 @water_bg:   #C2C8CC;
-@open_space: #D8DFD2;
+@open_space: #00DC00;
 @boundaries: #C4C0B1;
 
 Map {
