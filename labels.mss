@@ -139,15 +139,16 @@
 /* Natural */
 
 #openspace_labels[zoom>14]{
-  text-name: "[site_name]";
+  text-name: "[map_label_txt]";
   text-face-name: @font_italic;
-  text-size: 11;
+  text-size: 12;
   text-character-spacing: 3;
   text-min-distance: 70;
   text-wrap-width: 50;
   text-min-path-length: 100;
-  text-fill: @town_label_color;
-  text-transform: capitalize;
+  text-fill: darken(@open_space, 20%);
+  text-halo-fill: #fff;
+  /* text-transform: capitalize; */
   text-line-spacing: 5;
 }
 #hydrolabels[zoom>14]{
