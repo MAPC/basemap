@@ -33,6 +33,7 @@
       }
   }
   ::notboston{
+    [zoom  >6]{
       text-name: "[town]";
       text-face-name: @font_regular;
       text-size: 10;
@@ -41,11 +42,11 @@
       text-halo-fill: @land_bg;
       text-halo-radius: 1;
       text-allow-overlap: false;
-  }
-      
+    }
+  }    
 }
 
-#non_mapc_town_label[zoom < 10][pop2000 > 20000]{
+#non_mapc_town_label[zoom > 6][zoom < 10][pop2000 > 20000]{
     /* just make sure the bigger cities get labeled */
     ::bigtowns{
       [pop2000 > 75000]{
@@ -194,7 +195,7 @@
 /* Roads */
 
 #road_shields{
-  [admin_type = 1][class=1]{
+  [admin_type = 1][class=1][zoom > 9]{
     shield-name: "[rt_number]";
     shield-face-name: @font_regular;
     shield-size: 9;
@@ -211,7 +212,7 @@
     [zoom > 15]{ shield-min-distance: 400; }
   }
  
-  [admin_type = 2]{
+  [admin_type = 2][zoom > 9]{
     shield-name: "[rt_number]";
     shield-face-name: @font_regular;
     shield-size: 9;
@@ -229,11 +230,11 @@
     [zoom > 15]{ shield-min-distance: 400; }
   }
 
-  [admin_type = 3][class=1],
-  [admin_type = 3][class=2][zoom>8],
-  [admin_type = 3][class=3][zoom>8],
-  [admin_type = 3][class=4][zoom>8],
-  [admin_type = 3][class=5][zoom>8]{
+  [admin_type = 3][class=1][zoom>9],
+  [admin_type = 3][class=2][zoom>9],
+  [admin_type = 3][class=3][zoom>9],
+  [admin_type = 3][class=4][zoom>9],
+  [admin_type = 3][class=5][zoom>9]{
     shield-name: "[rt_number]";
     shield-face-name: @font_regular;
     shield-size: 9;
