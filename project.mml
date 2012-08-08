@@ -589,7 +589,7 @@
         "table": "(SELECT * FROM hubway_stations_26986 ) AS hubway_stations ",
         "extent": "",
         "key_field": "",
-        "geometry_field": "",
+        "geometry_field": "the_geom",
         "dbname": "trailmap",
         "host": "localhost",
         "port": "5432",
