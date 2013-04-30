@@ -33,7 +33,7 @@
       }
   }
   ::notboston{
-    [zoom  >6]{
+    [zoom > 6]{
       text-name: "[town]";
       text-face-name: @font_regular;
       text-size: 10;
@@ -46,20 +46,8 @@
   }    
 }
 
-#non_mapc_town_label[zoom > 6][zoom < 10][pop2000 > 20000]{
+#non_mapc_town_label[zoom > 6][zoom < 10]{
     /* just make sure the bigger cities get labeled */
-    ::bigtowns{
-      [pop2000 > 75000]{
-         text-name: "[town]";
-          text-face-name: @font_regular;
-          text-transform: capitalize;
-          text-allow-overlap: false;
-          text-size: 10;
-          text-fill: @town_label_color;
-          text-halo-fill: @land_bg;
-          text-halo-radius: 1;
-      }
-    }
     text-name: "[town]";
     text-face-name: @font_regular;
     text-transform: capitalize;
