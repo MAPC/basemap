@@ -91,6 +91,7 @@
   [path_type='CT'], [path_type='CTP'] { line-color: @cycletrack;}
   
   [path_type='OR'][route='local'] { line-color: @onroadroute; }
+  [path_type='OR'][route='greenway'] { line-color: @onroadroute; }
   
   /* Proposed facilities */
   
