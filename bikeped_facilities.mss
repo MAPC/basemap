@@ -17,6 +17,7 @@
 @baseline: 1.4;
 @sans: "Franklin Gothic Book Regular","Helvetica Neue Regular","Arial Regular","DejaVu Sans Book";
 
+
 /* Hubway */
 
 #hubway [zoom>12]{
@@ -25,57 +26,75 @@
 }
 
 
-/* Paths and Trails */
+/* Regional Network Labels */
 
-.paths {
+.regionallabel {
+  ::label {
+    text-face-name: @sans;
+    text-placement: line;
+    text-name: '[regionalname]';
+    text-size: 14;
+    text-halo-radius: 1;
+    text-halo-fill: #fff;
+    [regionalgreenroutestype='WT'] { text-fill: darken(@walking, 30%); }
+    [regionalgreenroutestype='GR'] { text-fill: darken(@biking, 30%); }
+  }
+}
+
+
+/* Shared Use */
+
+.shareduse {
   
   line-width: @baseline;
   
   [zoom < 12] { line-width: @baseline * 1; }
   [zoom < 16] { line-width: @baseline * 2; }
   
-  [path_type='E'], [path_type='PP'] { 
-    line-color: @improved;
+  line-color: @improved;
+  ::label {
+    text-face-name: @sans;
+    text-placement: line;
+    text-name: '[localname]';
+    text-size: 11;
+    text-halo-fill: #fff;
+    text-halo-radius: 1.5;
+    text-fill: darken(@improved, 20%);
+    text-min-distance: 80;
+  }
+  
+  [surfacetype=1] { 
+    line-color: @unimproved; 
     ::label {
-      [path_type='E'] {
-        text-face-name: @sans;
-        text-placement: line;
-        text-name: '[name]';
-        text-size: 11;
-        text-halo-fill: #fff;
-        text-halo-radius: 1.5;
-        text-fill: darken(@improved, 20%);
-        text-min-distance: 80;
-      }
+  	  text-fill: darken(@unimproved, 20%);
     }
   }
   
-  [path_type='U'], { line-color: @unimproved;}
-  [path_type='T'], [path_type='TP'] { 
-    line-color: @path;
-    line-width: @baseline / 2;
-    [zoom < 12] { line-width: @baseline * 1/3; }
-    [zoom < 16] { line-width: @baseline * 2/3; }
-    [category='water'] { 
-      ::outline { 
-        line-color: @water; 
-        [zoom < 12] { line-width: @baseline * 2; }
-        [zoom < 16] { line-width: @baseline * 4; }
-      }
-      ::stroke { line-color: @path; }
-    }
-
+  /* Proposed Projects */
+  [bikefacilitystatus=5] { 
+    line-dasharray: 4,3; 
+    line-opacity: 0.8;
   }
-  
-  /* Proposed facilities */
-  
-  [path_type='PP'], [path_type='TP']
-    { 
-      line-dasharray: 4,3; 
-      line-opacity: 0.8;
-    }
-
 }
+
+
+/* Walking Facilities */
+
+.walking {
+  
+  line-color: @path;
+  line-width: @baseline / 2;
+  
+  [zoom < 12] { line-width: @baseline * 1/3; }
+  [zoom < 16] { line-width: @baseline * 2/3; }
+  
+  /* Proposed Projects */
+  [walkfacilitystatus=5] { 
+    line-dasharray: 4,3; 
+    line-opacity: 0.8;
+  }
+}
+
 
 /* On-Road Bicycle Facilities */
 
@@ -86,22 +105,18 @@
   [zoom < 12] { line-width: @baseline * 1; }
   [zoom < 16] { line-width: @baseline * 2; }
   
-  [path_type='BL'], [path_type='BLP'] { line-color: @bikelane;}
-  [path_type='SL'], [path_type='SLP'] { line-color: @sharedlane;}
-  [path_type='CT'], [path_type='CTP'] { line-color: @cycletrack;}
+  [bikefacilitytype=1] { line-color: @bikelane; }
+  [bikefacilitytype=9] { line-color: @sharedlane; }
+  [bikefacilitytype=2] { line-color: @cycletrack; }
+  [bikefacilitytype=6] { line-color: @onroadroute; }
   
-  [path_type='OR'][route='local'] { line-color: @onroadroute; }
-  [path_type='OR'][route='greenway'] { line-color: @onroadroute; }
-  
-  /* Proposed facilities */
-  
-  [path_type='BLP'], [path_type='SLP'], [path_type='CTP']
-    { 
-      line-dasharray: 4,3; 
-      line-opacity: 0.8;
-    }
-  
+  /* Proposed Facilities */
+  [bikefacilitystatus=5] { 
+    line-dasharray: 4,3; 
+    line-opacity: 0.8;
+  }
 }
+
 
 /* Regional Networks */
 
@@ -113,41 +128,8 @@
   
   [zoom < 12] { line-width: @baseline * 2; }
   [zoom < 16] { line-width: @baseline * 4; }
-  
-  [category='hiking'], [category='shared-use'] { 
-    line-color: @walking; 
-    ::label {
-      text-face-name: @sans;
-      text-placement: line;
-      text-name: '[name]';
-      text-size: 16;
-      text-fill: darken(@walking, 30%);
-      text-halo-radius: 1.5;
-      text-halo-fill: #fff;
-    }
-  }
-  [category='on-road'] { 
-    line-color: @biking;
-    ::label {
-      text-face-name: @sans;
-      text-placement: line;
-      text-name: '[name]';
-      text-size: 16;
-      text-fill: darken(@biking, 30%);
-      text-halo-radius: 1.5;
-      text-halo-fill: #fff;
-    }
-  }
-}
 
-#aqueducts {
-  line-width: @baseline * 6;
-  line-color: @walking;
-  line-opacity: 0.8;
-  line-join: round; 
-  line-dasharray: 8,6;
+  [regionalgreenroutestype='WT'] { line-color: @walking; }
   
-  [zoom < 12] { line-width: @baseline * 2; }
-  [zoom < 16] { line-width: @baseline * 4; }
-  
+  [regionalgreenroutestype='GR'] { line-color: @biking; }
 }

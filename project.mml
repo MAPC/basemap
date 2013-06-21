@@ -1,14 +1,14 @@
 {
   "bounds": [
-    -76.9922,
-    40.313,
-    -66.2695,
-    47.8721
+    -71.2759,
+    42.2798,
+    -71.1516,
+    42.3702
   ],
   "center": [
-    -71.0602,
-    42.3609,
-    13
+    -71.2003,
+    42.3336,
+    11
   ],
   "format": "png",
   "interactivity": false,
@@ -460,30 +460,10 @@
       "geometry": "linestring",
       "Datasource": {
         "type": "postgis",
-        "table": "( SELECT * FROM bikeped_facilities_aqueducts ) AS bikeped_facilities_aqueducts",
-        "extent": "",
+        "table": "(SELECT wkb_geometry, regionalgreenroutestype, regionalname FROM bikeped_facilities \nWHERE regionalgreenroutestype IS NOT NULL) as regional",
+        "extent": "212982.800900005,884260.2357,227572.547000006,901913.795400001",
         "key_field": "",
-        "geometry_field": "the_geom",
-        "host": "localhost",
-        "port": "5432",
-        "user": "mapc",
-        "password": "mapc",
-        "dbname": "trailmap"
-      },
-      "id": "aqueducts",
-      "class": "",
-      "srs-name": "custom",
-      "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
-      "name": "aqueducts"
-    },
-    {
-      "geometry": "linestring",
-      "Datasource": {
-        "type": "postgis",
-        "table": "(SELECT the_geom, path_type, category, route, name FROM bikeped_facilities \nWHERE route = 'long-distance') as regional",
-        "extent": "",
-        "key_field": "",
-        "geometry_field": "the_geom",
+        "geometry_field": "wkb_geometry",
         "host": "localhost",
         "port": "5432",
         "user": "mapc",
@@ -491,42 +471,61 @@
         "dbname": "trailmap",
         "id": "bikeped",
         "project": "trailmap",
-        "srs": null
+        "srs": null,
+        "extent_cache": "auto"
       },
       "id": "regional",
       "class": "regional",
       "srs-name": "custom",
       "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
-      "name": "regional"
+      "name": "regional",
+      "extent": [
+        -71.34277857146292,
+        42.20868511712081,
+        -71.16525942054675,
+        42.367239288912394
+      ],
+      "advanced": {}
     },
     {
       "geometry": "linestring",
       "Datasource": {
         "type": "postgis",
-        "table": "(SELECT the_geom, path_type, category, route FROM bikeped_facilities WHERE (category <> 'hiking' AND path_type NOT IN ('E', 'PP', 'U', 'T', 'OR')) OR (path_type = 'OR' AND route <> 'long-distance') ) AS onroad",
-        "extent": "",
+        "table": "(SELECT wkb_geometry, bikefacilitystatus, bikefacilitytype, localname FROM bikeped_facilities WHERE bikefacilitytype in (1,2,6,9))  AS onroad",
+        "extent": "212982.800900005,884260.2357,227572.547000006,901913.795400001",
         "key_field": "",
-        "geometry_field": "the_geom",
+        "geometry_field": "wkb_geometry",
         "host": "localhost",
         "port": "5432",
         "user": "mapc",
         "password": "mapc",
-        "dbname": "trailmap"
+        "dbname": "trailmap",
+        "extent_cache": "auto",
+        "id": "onroad",
+        "project": "basemap",
+        "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs"
       },
       "id": "onroad",
       "class": "onroad",
       "srs-name": "custom",
       "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
-      "name": "onroad"
+      "name": "onroad",
+      "extent": [
+        -71.34277857146292,
+        42.20868511712081,
+        -71.16525942054675,
+        42.367239288912394
+      ],
+      "advanced": {}
     },
     {
       "geometry": "linestring",
       "Datasource": {
         "type": "postgis",
-        "table": "(SELECT the_geom, path_type, name, category, route FROM bikeped_facilities WHERE (category = 'shared-use' AND path_type IN ('E', 'PP', 'U')) OR (category IN ('hiking', 'water') AND path_type IN ('T', 'TP')) ) as paths",
-        "extent": "",
+        "table": "(SELECT wkb_geometry, bikefacilitystatus, bikefacilitytype, surfacetype, localname  FROM bikeped_facilities WHERE bikefacilitytype = 5 ) as shareduse",
+        "extent": "212982.800900005,884260.2357,227572.547000006,901913.795400001",
         "key_field": "",
-        "geometry_field": "the_geom",
+        "geometry_field": "wkb_geometry",
         "host": "localhost",
         "port": "5432",
         "user": "mapc",
@@ -534,13 +533,77 @@
         "dbname": "trailmap",
         "id": "paths",
         "project": "trailmap",
-        "srs": null
+        "srs": null,
+        "extent_cache": "auto"
       },
-      "id": "paths",
-      "class": "paths",
+      "id": "shareduse",
+      "class": "shareduse",
       "srs-name": "custom",
       "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
-      "name": "paths"
+      "name": "shareduse",
+      "extent": [
+        -71.34277857146292,
+        42.20868511712081,
+        -71.16525942054675,
+        42.367239288912394
+      ],
+      "advanced": {}
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -71.34277857146292,
+        42.20868511712081,
+        -71.16525942054675,
+        42.367239288912394
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT wkb_geometry, walkfacilitystatus, walkfacilitytype, localname  FROM bikeped_facilities WHERE walkfacilitytype = 2 ) as walking",
+        "key_field": "",
+        "geometry_field": "wkb_geometry",
+        "extent_cache": "auto",
+        "extent": "212982.800900005,884260.2357,227572.547000006,901913.795400001",
+        "dbname": "trailmap",
+        "host": "localhost",
+        "port": "5432",
+        "user": "mapc",
+        "password": "mapc"
+      },
+      "id": "walking",
+      "class": "walking",
+      "srs-name": "custom",
+      "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
+      "advanced": {},
+      "name": "walking"
+    },
+    {
+      "geometry": "linestring",
+      "extent": [
+        -71.34277857146292,
+        42.20868511712081,
+        -71.16525942054675,
+        42.367239288912394
+      ],
+      "Datasource": {
+        "type": "postgis",
+        "table": "(SELECT wkb_geometry, regionalgreenroutestype, regionalname FROM bikeped_facilities \nWHERE regionalgreenroutestype IS NOT NULL) as regionallabel",
+        "key_field": "",
+        "geometry_field": "wkb_geometry",
+        "extent_cache": "auto",
+        "extent": "212982.800900005,884260.2357,227572.547000006,901913.795400001",
+        "dbname": "trailmap",
+        "host": "localhost",
+        "port": "5432",
+        "user": "mapc",
+        "password": "mapc"
+      },
+      "id": "regionallabel",
+      "class": "regionallabel",
+      "srs-name": "custom",
+      "srs": "+proj=lcc +lat_1=42.68333333333333 +lat_2=41.71666666666667 +lat_0=41 +lon_0=-71.5 +x_0=200000 +y_0=750000 +ellps=GRS80 +datum=NAD83 +units=m +no_defs",
+      "advanced": {},
+      "name": "regionallabel"
     },
     {
       "geometry": "point",
